@@ -1227,8 +1227,8 @@ def analyse_frames(par, pipeline, NumberOfFrames, PropertiesToCompute, TimestepI
                 line.append(EndtoendDistanceNotbonded)
                 linecolumns.append('EndtoendDistanceNotbondedMM')
 
-                #End to end distance of filaments bonded to something and not bonded to anything
-                mask = np.array([(dfPartA[dfPartA['Molec']==i]['BondedC_Apart'].any() or dfPartA[dfPartA['Molec']==i]['BondedM_Apart'].any()) for i in range(1,getparams(filestring)['nF']+1)])
+                # End to end distance of filaments in ring and out of ring
+                mask = np.array([(dfPartA[dfPartA['Molec']==i]['Cluster']==1).any() for i in range(1,getparams(filestring)['nF']+1)])
                 try: 
                     EndtoendDistanceBonded = np.nanmean(EndtoendDistances[mask])
                 except:
